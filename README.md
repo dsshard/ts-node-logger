@@ -18,7 +18,7 @@ import { logger } from '@coxy/ts-node-logger';
 ... or using CommonJS syntax:
 
 ```javascript
-const { v4: uuidv4 } = require('uuid');
+const { logger } = require('@coxy/ts-node-logger');
 ```
 ```javascript
 logger.log('some message');
