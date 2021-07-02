@@ -2,7 +2,7 @@ interface LoggerConstructorParams {
     name: string;
 }
 export declare function InjectLogger(ctr: Function): void;
-export default class Logger {
+export declare class Logger {
     private readonly prefix;
     private uuid;
     constructor(params?: LoggerConstructorParams);

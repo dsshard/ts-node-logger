@@ -1,4 +1,8 @@
-import { v4 as uuidv4 } from 'uuid'
+const s4 = (): string => Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1)
+
+function uuid (len: number = 100): string {
+    return `${s4() + s4()}-${s4()}-${s4()}-${s4()}-${s4()}${s4()}${s4()}`.slice(0, len)
+}
 
 interface LoggerConstructorParams {
     name: string
@@ -14,7 +18,7 @@ export class Logger {
     private uuid: string
 
     constructor (params?: LoggerConstructorParams) {
-        this.uuid = uuidv4()
+        this.uuid = uuid(5)
         this.prefix = params?.name || null
     }
 
@@ -29,7 +33,7 @@ export class Logger {
     }
 
     public resetId (): void {
-        this.uuid = uuidv4()
+        this.uuid = uuid(5)
     }
 
     public log (...args: any[]): void {

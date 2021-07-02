@@ -1,14 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.InjectLogger = void 0;
-const uuid_1 = require("uuid");
+exports.Logger = exports.InjectLogger = void 0;
+const s4 = () => Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+function uuid(len = 100) {
+    return `${s4() + s4()}-${s4()}-${s4()}-${s4()}-${s4()}${s4()}${s4()}`.slice(0, len);
+}
 function InjectLogger(ctr) {
     ctr.prototype.logger = new Logger({ name: ctr.prototype.constructor.name });
 }
 exports.InjectLogger = InjectLogger;
 class Logger {
     constructor(params) {
-        this.uuid = uuid_1.v4();
+        this.uuid = uuid(5);
         this.prefix = (params === null || params === void 0 ? void 0 : params.name) || null;
     }
     message(type, ...args) {
@@ -22,7 +25,7 @@ class Logger {
         fn(...args);
     }
     resetId() {
-        this.uuid = uuid_1.v4();
+        this.uuid = uuid(5);
     }
     log(...args) {
         this.message('log', ...args);
@@ -37,5 +40,5 @@ class Logger {
         this.message('info', ...args);
     }
 }
-exports.default = Logger;
+exports.Logger = Logger;
 //# sourceMappingURL=index.js.map
