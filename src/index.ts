@@ -9,7 +9,7 @@ export function InjectLogger (ctr: Function) {
     ctr.prototype.logger = new Logger({ name: ctr.prototype.constructor.name })
 }
 
-export default class Logger {
+export class Logger {
     private readonly prefix: string
     private uuid: string
 
