@@ -16,6 +16,7 @@
     "outDir": "./dist",
     "baseUrl": "./src"
   },
+  "include": ["./src"],
   "exclude": [
     "**/*.d.ts",
     "./node_modules",
