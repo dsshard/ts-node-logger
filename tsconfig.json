@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "declaration": true,
+    "module": "CommonJS",
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "ES6",
+    "sourceMap": true,
+    "composite": true,
+    "incremental": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": false,
+    "resolveJsonModule": true,
+    "outDir": "./dist",
+    "baseUrl": "./src"
+  },
+  "exclude": [
+    "**/*.d.ts",
+    "./node_modules",
+    "dist"
+  ]
+}
