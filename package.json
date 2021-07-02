@@ -1,8 +1,9 @@
 {
-  "name": "ts-node-logger",
+  "name": "@coxy/ts-node-logger",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/index.js/index.js.map",
+  "main": "dist/index.js",
+  "types": "src/index.ts",
   "scripts": {
     "build": "tsc"
   },
