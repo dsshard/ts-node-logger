@@ -4,7 +4,7 @@ interface LoggerConstructorParams {
 export declare function InjectLogger(ctr: Function): void;
 export default class Logger {
     private readonly prefix;
-    private uuidv4;
+    private uuid;
     constructor(params?: LoggerConstructorParams);
     private message;
     resetId(): void;

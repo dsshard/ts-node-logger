@@ -8,21 +8,21 @@ function InjectLogger(ctr) {
 exports.InjectLogger = InjectLogger;
 class Logger {
     constructor(params) {
-        this.uuidv4 = uuid_1.v4();
+        this.uuid = uuid_1.v4();
         this.prefix = (params === null || params === void 0 ? void 0 : params.name) || null;
     }
     message(type, ...args) {
         if (process.env.NODE_ENV === 'test')
             return;
         const fn = console[type];
-        if (this.uuidv4)
-            args.unshift(`[${this.uuidv4}]`);
+        if (this.uuid)
+            args.unshift(`[${this.uuid}]`);
         if (this.prefix)
             args.unshift(`[${this.prefix}]`);
         fn(...args);
     }
     resetId() {
-        this.uuidv4 = uuid_1.v4();
+        this.uuid = uuid_1.v4();
     }
     log(...args) {
         this.message('log', ...args);

@@ -11,10 +11,10 @@ export function InjectLogger (ctr: Function) {
 
 export default class Logger {
     private readonly prefix: string
-    private uuidv4: string
+    private uuid: string
 
     constructor (params?: LoggerConstructorParams) {
-        this.uuidv4 = uuidv4()
+        this.uuid = uuidv4()
         this.prefix = params?.name || null
     }
 
@@ -22,14 +22,14 @@ export default class Logger {
         if (process.env.NODE_ENV === 'test') return
 
         const fn = console[type]
-        if (this.uuidv4) args.unshift(`[${this.uuidv4}]`)
+        if (this.uuid) args.unshift(`[${this.uuid}]`)
         if (this.prefix) args.unshift(`[${this.prefix}]`)
 
         fn(...args)
     }
 
     public resetId (): void {
-        this.uuidv4 = uuidv4()
+        this.uuid = uuidv4()
     }
 
     public log (...args: any[]): void {
