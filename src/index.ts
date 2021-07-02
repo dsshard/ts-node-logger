@@ -1,24 +1,27 @@
 const s4 = (): string => Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1)
 
-function uuid (len: number = 100): string {
+function uuid (len: number = 10): string {
     return `${s4() + s4()}-${s4()}-${s4()}-${s4()}-${s4()}${s4()}${s4()}`.slice(0, len)
 }
 
 interface LoggerConstructorParams {
-    name: string
+    name?: string,
+    length?: number,
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function InjectLogger (ctr: Function) {
-    ctr.prototype.logger = new Logger({ name: ctr.prototype.constructor.name })
+    ctr.prototype.logger = new Logger({ name: ctr.prototype.constructor.name, length: ctr.prototype.constructor.length })
 }
 
 export class Logger {
     private readonly prefix: string
+    private readonly length: number
     private uuid: string
 
     constructor (params?: LoggerConstructorParams) {
-        this.uuid = uuid(5)
+        this.uuid = uuid(params?.length || 5)
+        this.length = params?.length || 5
         this.prefix = params?.name || null
     }
 
@@ -33,7 +36,7 @@ export class Logger {
     }
 
     public resetId (): void {
-        this.uuid = uuid(5)
+        this.uuid = uuid(this.length)
     }
 
     public log (...args: any[]): void {
