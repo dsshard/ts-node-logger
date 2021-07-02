@@ -1,4 +1,4 @@
-import { uuid } from 'uuidv4'
+import { v4 as uuidv4 } from 'uuid'
 
 interface LoggerConstructorParams {
     name: string
@@ -9,12 +9,12 @@ export function InjectLogger (ctr: Function) {
     ctr.prototype.logger = new Logger({ name: ctr.prototype.constructor.name })
 }
 
-export class Logger {
+export default class Logger {
     private readonly prefix: string
-    private uuid: string
+    private uuidv4: string
 
     constructor (params?: LoggerConstructorParams) {
-        this.uuid = uuid()
+        this.uuidv4 = uuidv4()
         this.prefix = params?.name || null
     }
 
@@ -22,14 +22,14 @@ export class Logger {
         if (process.env.NODE_ENV === 'test') return
 
         const fn = console[type]
-        if (this.uuid) args.unshift(`[${this.uuid}]`)
+        if (this.uuidv4) args.unshift(`[${this.uuidv4}]`)
         if (this.prefix) args.unshift(`[${this.prefix}]`)
 
         fn(...args)
     }
 
     public resetId (): void {
-        this.uuid = uuid()
+        this.uuidv4 = uuidv4()
     }
 
     public log (...args: any[]): void {

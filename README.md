@@ -1,8 +1,6 @@
 # ts-node-logger
 
-## Quickstart
-
-To create a random UUID...
+To create 
 
 **1. Install**
 
@@ -18,7 +16,7 @@ import { logger } from '@coxy/ts-node-logger';
 ... or using CommonJS syntax:
 
 ```javascript
-const { logger } = require('@coxy/ts-node-logger');
+const { logger } = require('@coxy/ts-node-logger').Logger;
 ```
 ```javascript
 logger.log('some message');
