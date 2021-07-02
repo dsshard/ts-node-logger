@@ -1,7 +1,5 @@
 # ts-node-logger
 
-To create 
-
 **1. Install**
 
 ```shell
