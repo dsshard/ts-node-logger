@@ -2,7 +2,7 @@
   "name": "ts-node-logger",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/index.js",
+  "main": "dist/index.js/index.js.map",
   "scripts": {
     "build": "tsc"
   },
