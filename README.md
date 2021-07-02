@@ -8,17 +8,12 @@ To create
 npm install @coxy/ts-node-logger
 ```
 
-**Create a logger** (ES6 module syntax)
+**2. Usage**
+```javascript
+const { Logger } = require('@coxy/ts-node-logger');
 
-```javascript
-import { logger } from '@coxy/ts-node-logger';
-````
-... or using CommonJS syntax:
+const logger = new Logger;
 
-```javascript
-const { logger } = require('@coxy/ts-node-logger').Logger;
-```
-```javascript
 logger.log('some message');
 logger.info('some message');
 logger.warn('some message');
