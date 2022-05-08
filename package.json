@@ -1,6 +1,6 @@
 {
   "name": "@coxy/ts-node-logger",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "NodeJS simple logger",
   "private": false,
   "main": "dist/src/index.js",
