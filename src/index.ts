@@ -1,28 +1,35 @@
+export function toArray (any: any): any[] {
+  return Array.isArray(any) ? any : [any]
+}
+
 const s4 = (): string => Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1)
 
-function uuid (len = 10): string {
+export function uuid (len = 100): string {
   return `${s4() + s4()}-${s4()}-${s4()}-${s4()}-${s4()}${s4()}${s4()}`.slice(0, len)
 }
 
 interface LoggerConstructorParams {
-  name?: string,
-  length?: number,
-}
-
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export function InjectLogger (ctr) {
-  ctr.prototype.logger = new Logger({ name: ctr.prototype.constructor.name, length: ctr.prototype.constructor.length })
+  name: string[] | string
+  uuid?: number
 }
 
 export class Logger {
-  private readonly prefix: string
-  private readonly length: number
-  private uuid: string
+  protected readonly prefixes: string[] = []
+  private uuid: string = null
+  private options: LoggerConstructorParams;
 
   constructor (params?: LoggerConstructorParams) {
-    this.uuid = uuid(params?.length || 5)
-    this.length = params?.length || 5
-    this.prefix = params?.name || null
+    this.options = params
+    if (params.uuid) {
+      this.uuid = uuid(params.uuid || 5)
+    }
+    if (params?.name) {
+      this.prefixes.push(...toArray(params?.name))
+    }
+  }
+
+  public resetId (): void {
+    this.uuid = uuid(this.options.uuid || 5)
   }
 
   private message (type: keyof Console, ...args: any[]): void {
@@ -30,13 +37,19 @@ export class Logger {
 
     const fn: any = console[type]
     if (this.uuid) args.unshift(`[${this.uuid}]`)
-    if (this.prefix) args.unshift(`[${this.prefix}]`)
+
+    if (this.prefixes.length) {
+      [...this.prefixes].reverse().forEach(prefix => {
+        args.unshift(`[${prefix}]`)
+      })
+    }
 
     fn(...args)
   }
 
-  public resetId (): void {
-    this.uuid = uuid(this.length)
+  public fork (params?: LoggerConstructorParams) {
+    const name = [...this.prefixes].concat(...toArray(params.name))
+    return new Logger({ ...params, name })
   }
 
   public log (...args: any[]): void {

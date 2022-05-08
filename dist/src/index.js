@@ -1,19 +1,29 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Logger = exports.InjectLogger = void 0;
+exports.Logger = exports.uuid = exports.toArray = void 0;
+function toArray(any) {
+    return Array.isArray(any) ? any : [any];
+}
+exports.toArray = toArray;
 const s4 = () => Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-function uuid(len = 10) {
+function uuid(len = 100) {
     return `${s4() + s4()}-${s4()}-${s4()}-${s4()}-${s4()}${s4()}${s4()}`.slice(0, len);
 }
-function InjectLogger(ctr) {
-    ctr.prototype.logger = new Logger({ name: ctr.prototype.constructor.name, length: ctr.prototype.constructor.length });
-}
-exports.InjectLogger = InjectLogger;
+exports.uuid = uuid;
 class Logger {
     constructor(params) {
-        this.uuid = uuid((params === null || params === void 0 ? void 0 : params.length) || 5);
-        this.length = (params === null || params === void 0 ? void 0 : params.length) || 5;
-        this.prefix = (params === null || params === void 0 ? void 0 : params.name) || null;
+        this.prefixes = [];
+        this.uuid = null;
+        this.options = params;
+        if (params.uuid) {
+            this.uuid = uuid(params.uuid || 5);
+        }
+        if (params === null || params === void 0 ? void 0 : params.name) {
+            this.prefixes.push(...toArray(params === null || params === void 0 ? void 0 : params.name));
+        }
+    }
+    resetId() {
+        this.uuid = uuid(this.options.uuid || 5);
     }
     message(type, ...args) {
         if (process.env.NODE_ENV === 'test')
@@ -21,12 +31,16 @@ class Logger {
         const fn = console[type];
         if (this.uuid)
             args.unshift(`[${this.uuid}]`);
-        if (this.prefix)
-            args.unshift(`[${this.prefix}]`);
+        if (this.prefixes.length) {
+            [...this.prefixes].reverse().forEach(prefix => {
+                args.unshift(`[${prefix}]`);
+            });
+        }
         fn(...args);
     }
-    resetId() {
-        this.uuid = uuid(this.length);
+    fork(params) {
+        const name = [...this.prefixes].concat(...toArray(params.name));
+        return new Logger(Object.assign(Object.assign({}, params), { name }));
     }
     log(...args) {
         this.message('log', ...args);

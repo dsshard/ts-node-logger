@@ -1,15 +1,17 @@
+export declare function toArray(any: any): any[];
+export declare function uuid(len?: number): string;
 interface LoggerConstructorParams {
-    name?: string;
-    length?: number;
+    name: string[] | string;
+    uuid?: number;
 }
-export declare function InjectLogger(ctr: any): void;
 export declare class Logger {
-    private readonly prefix;
-    private readonly length;
+    protected readonly prefixes: string[];
     private uuid;
+    private options;
     constructor(params?: LoggerConstructorParams);
-    private message;
     resetId(): void;
+    private message;
+    fork(params?: LoggerConstructorParams): Logger;
     log(...args: any[]): void;
     warn(...args: any[]): void;
     error(...args: any[]): void;
