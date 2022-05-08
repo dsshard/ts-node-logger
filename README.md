@@ -17,6 +17,7 @@ import { Logger } from '@coxy/ts-node-logger';
 ```javascript
 const { Logger } = require('@coxy/ts-node-logger');
 ```
+
 **Params**
 
 | value | type | default value |
@@ -27,9 +28,9 @@ const { Logger } = require('@coxy/ts-node-logger');
 ```javascript
 const logger = new Logger;
 
-const logger2 = new Logger({name: 'abc'});
+const logger2 = new Logger({ name: 'abc' });
 
-const logger3 = new Logger({name: 'foo', length: 8});
+const logger3 = new Logger({ name: 'foo', length: 8 });
 ```
 
 **Methods**
@@ -45,8 +46,8 @@ logger.resetId();
 logger.log('123'); //[2e0ab648-1310-cd] 123
 ```
 
-
 **Exapmle**
+
 ```javascript
 const logger = new Logger;
 
@@ -57,9 +58,9 @@ logger.error('some message'); //[675da0e1] some message
 ```
 
 ```javascript
-const logger2 = new Logger({length: 10});
+const logger2 = new Logger({ length: 10 });
 logger.wann('message') //[2f301fe0-b] 123
 
-const logger = new Logger({name: 'foo', length: 8});
+const logger = new Logger({ name: 'foo', length: 8 });
 logger.warn('message') //[foo] [675da0e1] 123
 ```

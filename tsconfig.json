@@ -6,8 +6,8 @@
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "ES6",
-    "sourceMap": true,
+    "target": "es2017",
+    "sourceMap": false,
     "composite": true,
     "incremental": true,
     "noUnusedLocals": true,
@@ -15,9 +15,8 @@
     "resolveJsonModule": true,
     "outDir": "./dist",
     "baseUrl": "./src",
-    "rootDir": "./src"
   },
-  "include": ["./src"],
+  "include": ["./src/**/*", "./src/**/*.json"],
   "exclude": [
     "**/*.d.ts",
     "./node_modules",

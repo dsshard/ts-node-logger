@@ -42,4 +42,3 @@ class Logger {
     }
 }
 exports.Logger = Logger;
-//# sourceMappingURL=index.js.map
